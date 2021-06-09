@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-toolbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12">
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6" offset="2" style="--ion-background-color: #fff;">
+                <ion-grid fixed>
+                    <ion-row>
+                        <ion-col>
+                            <ng-container *ngFor="let post of listOfPosts; let ind = index">
+                                <ion-card>
+                                    <ion-grid fixed>
+                                        <ion-row>
+                                            <ion-col size="1" class="likescase ion-text-center">
+                                                <ion-icon name="heart-outline"></ion-icon>
+                                                {{post.likes}}
+                                                <hr>
+                                                <ion-icon name="heart-dislike-outline"></ion-icon>
+                                                {{post.dislikes}}
+                                            </ion-col>
+                                            <ion-col size="9">
+                                                <div class="postedby">Posted by u/<a [routerLink]="[ '/profile', post.user.id]">{{post.user.username}}</a> - {{post.date}}</div>
+                                                <h6 class="topiclink" *ngIf="post.type == 0 || post.type == 1"><a [routerLink]="[ '/topic', post.topic.id]">t/{{post.topic.title}}</a></h6>
+                                                <h6 class="topiclink" *ngIf="post.type == 2"><a [routerLink]="[ '/topic', post.topic.id]">ev/{{post.topic.title}}</a></h6>
+                                                <h3 class="postlink"><a [routerLink]="[ '/post', post.id]">{{post.title}}</a></h3>
+                                            </ion-col>
+                                            <ion-col size="2" *ngIf="post.type == 2">
+                                                <img class="thumbnail" src="../../../assets/event-invitation-redimg.jpg" />
+                                            </ion-col>
+                                            <ion-col size="2" *ngIf="post.type == 0">
+                                                <img [attr.src]="getImageURL(ind)" alt="Cannot load" />
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </ion-card>
+                            </ng-container>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+            </ion-col>
+            <ion-col size="2">
+                <div class="widget">
+                    <h4 class="about">Welcome Back !</h4>
+                </div>
+
+                <div class="widget">
+                    <h4 class="about">Some interesting topics</h4>
+                    <hr>
+                </div>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
